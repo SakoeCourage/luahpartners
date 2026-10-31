@@ -5,6 +5,10 @@
 
 This repository contains the in-house Next.js web application for **Luah Partners, Inc.**, replacing the legacy Wix website to lower operating costs, enhance performance, and provide full control over custom business workflows, payment integrations, and client portals.
 
+## Hosted Preview
+
+View the current work-in-progress site at [luahpartners.minzo.skcourage.tech](https://luahpartners.minzo.skcourage.tech/). This URL is provided for reviewers to preview the migration; it is **not** the final production domain.
+
 > **Design Note:** Visual styling and color tokens from the legacy Wix site have been intentionally excluded. A new design created in **Figma** will serve as the design foundation for the homepage and design tokens moving forward.
 
 ---
