@@ -48,7 +48,7 @@ const pillars: Pillar[] = [
 export function PillarsSection() {
   return (
     <section className="w-full bg-white font-sans py-20 lg:py-24 border-b border-brand-sand/50">
-      <div className="max-w-page mx-auto px-4 sm:px-8">
+      <div className="max-w-page mx-auto px-6 sm:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Section Intro & Mission */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6">

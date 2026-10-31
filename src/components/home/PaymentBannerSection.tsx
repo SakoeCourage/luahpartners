@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@/components/icons";
 export function PaymentBannerSection() {
   return (
     <section className="w-full bg-brand-navy font-sans py-16 sm:py-20 text-white">
-      <div className="max-w-page mx-auto px-4 sm:px-8">
+      <div className="max-w-page mx-auto px-6 sm:px-12">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           {/* Left Side: Security messaging */}
           <div className="space-y-3 max-w-2xl">

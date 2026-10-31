@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@/components/icons";
 export function ListingsCtaSection() {
   return (
     <section className="w-full bg-white font-sans py-20 lg:py-24 border-b border-brand-sand/50">
-      <div className="max-w-page mx-auto px-4 sm:px-8">
+      <div className="max-w-page mx-auto px-6 sm:px-12">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           {/* Left: Heading and message */}
           <div className="space-y-3 max-w-2xl">

@@ -24,7 +24,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-brand-navy-dark text-white font-sans border-t border-white/5">
       {/* Main 4-Column Footer Grid */}
-      <div className="max-w-page mx-auto px-4 sm:px-8 pt-16 pb-12">
+      <div className="max-w-page mx-auto px-6 sm:px-12 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Col 1: Brand Info & Compliance Statement (Span 4) */}
           <div className="lg:col-span-4 space-y-5">

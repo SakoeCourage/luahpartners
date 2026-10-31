@@ -35,7 +35,7 @@ const trustBadges = [
 export function TrustSection() {
   return (
     <section className="w-full bg-white border-b border-brand-sand/50 font-sans py-14 sm:py-16">
-      <div className="max-w-page mx-auto px-4 sm:px-8">
+      <div className="max-w-page mx-auto px-6 sm:px-12">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-8">
           <span className="w-8 h-px bg-brand-gold" />

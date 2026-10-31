@@ -7,7 +7,7 @@ export function HeroSection() {
     <section className="w-full bg-brand-navy font-sans overflow-hidden">
       <div className="max-w-page mx-auto grid grid-cols-1 lg:grid-cols-2">
         {/* Left Column: Brand copy & CTAs */}
-        <div className="flex flex-col justify-center px-6 py-16 sm:px-12 sm:py-20 lg:px-16 xl:px-20 lg:py-24">
+        <div className="flex flex-col justify-center px-6 py-16 sm:px-12 sm:py-20 lg:py-24">
           {/* Geographic Tag */}
           <div className="flex items-center gap-3">
             <span className="w-8 h-px bg-brand-gold" />

@@ -25,8 +25,8 @@ export function Header() {
   return (
     <header className="w-full font-sans">
       {/* 1. Top Utility Contact Bar */}
-      <div className="bg-brand-navy text-brand-slate text-xs py-2.5 px-4 sm:px-8 border-b border-white/5">
-        <div className="max-w-page mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div className="bg-brand-navy text-brand-slate text-xs py-2.5 border-b border-white/5">
+        <div className="max-w-page mx-auto px-6 sm:px-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           {/* Left contact info */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <a
@@ -60,7 +60,7 @@ export function Header() {
 
       {/* 2. Main Sticky Navigation */}
       <nav className="bg-white border-b border-brand-sand/60 sticky top-0 z-50">
-        <div className="max-w-page mx-auto px-4 sm:px-8 h-20 flex items-center justify-between gap-4">
+        <div className="max-w-page mx-auto px-6 sm:px-12 h-20 flex items-center justify-between gap-4">
           {/* Brand Logo & Tagline */}
           <Link href="/" className="flex items-center gap-3.5 group shrink-0">
             <div className="w-10 h-10 relative shrink-0 overflow-hidden bg-brand-navy flex items-center justify-center">
