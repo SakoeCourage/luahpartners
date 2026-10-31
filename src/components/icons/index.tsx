@@ -183,3 +183,4 @@ export function ArrowRightIcon({ size = 16, className = "", ...props }: IconProp
     </svg>
   );
 }
+
