@@ -1,0 +1,124 @@
+.luah-phone-input {
+  width: 100%;
+  color: var(--brand-navy);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.luah-phone-input .form-control {
+  width: 100%;
+  height: 52px;
+  border: 1px solid var(--brand-sand);
+  border-radius: 0;
+  padding-left: 56px;
+  background: white;
+  color: var(--brand-navy);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.luah-phone-input .form-control::placeholder {
+  color: var(--brand-muted);
+  opacity: 1;
+}
+
+.luah-phone-input .form-control:focus {
+  border-color: var(--brand-gold);
+  box-shadow: none;
+}
+
+.luah-phone-input:has(.flag-dropdown.open) .form-control {
+  border-color: var(--brand-gold);
+}
+
+.luah-phone-input .flag-dropdown,
+.luah-phone-input .flag-dropdown.open,
+.luah-phone-input .flag-dropdown.open .selected-flag {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.luah-phone-input .flag-dropdown {
+  width: 52px;
+}
+
+.luah-phone-input .selected-flag {
+  width: 52px;
+  border-radius: 0;
+  padding-left: 14px;
+}
+
+.luah-phone-input .selected-flag:hover,
+.luah-phone-input .selected-flag:focus {
+  background: transparent;
+}
+
+.luah-phone-input .selected-flag .arrow {
+  left: 23px;
+  border-top-color: var(--brand-navy);
+}
+
+.luah-phone-input .selected-flag .arrow.up {
+  border-bottom-color: var(--brand-navy);
+}
+
+.luah-phone-input .country-list {
+  z-index: 30;
+  width: 322px;
+  max-height: 270px;
+  margin: 0;
+  border: 1px solid var(--brand-sand);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--brand-navy);
+  font-family: inherit;
+}
+
+.luah-phone-input .country-list .search {
+  position: sticky;
+  top: 0;
+  padding: 20px 24px 10px;
+}
+
+.luah-phone-input .country-list .search-emoji {
+  display: none !important;
+}
+
+.luah-phone-input .country-list .search-box {
+  width: 100%;
+  height: 42px;
+  margin-left: 0;
+  border: 1px solid var(--brand-sand);
+  border-radius: 0;
+  padding: 8px 12px;
+  color: var(--brand-navy);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.luah-phone-input .country-list .search-box:focus {
+  border-color: var(--brand-gold);
+}
+
+.luah-phone-input .country-list .country {
+  padding: 11px 24px;
+}
+
+.luah-phone-input .country-list .country-name,
+.luah-phone-input .country-list .country .dial-code {
+  color: var(--brand-navy);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.luah-phone-input .country-list .country:hover,
+.luah-phone-input .country-list .country.highlight {
+  background: #dedfe1;
+}
+
+.luah-phone-input .country-list .divider {
+  margin: 0;
+  border-bottom-color: var(--brand-sand);
+}
