@@ -118,11 +118,10 @@ export default function AccessibilityFairHousingPage() {
                 key={link.href}
                 href={link.href}
                 aria-current={isCurrent ? "page" : undefined}
-                className={`whitespace-nowrap transition-colors ${
-                  isCurrent
-                    ? "font-bold text-brand-gold-light"
-                    : "text-brand-muted hover:text-brand-navy"
-                }`}
+                className={`whitespace-nowrap transition-colors ${isCurrent
+                  ? "font-bold text-brand-gold-light"
+                  : "text-brand-muted hover:text-brand-navy"
+                  }`}
               >
                 {link.label}
               </Link>
