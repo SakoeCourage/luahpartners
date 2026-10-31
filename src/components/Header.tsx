@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -24,10 +24,28 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [mobileMenuOpen]);
+
   return (
-    <header className="w-full font-sans">
+    <>
+      <header className="w-full font-sans max-lg:fixed max-lg:inset-x-0 max-lg:top-0 max-lg:z-50">
       {/* 1. Top Utility Contact Bar */}
-      <div className="bg-brand-navy text-brand-slate text-xs py-2 border-b border-white/5">
+      <div className="relative z-20 hidden border-b border-white/5 bg-brand-navy py-2 text-xs text-brand-slate lg:block">
         <div className="max-w-page mx-auto px-6 sm:px-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           {/* Left contact info */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -61,7 +79,7 @@ export function Header() {
       </div>
 
       {/* 2. Main Sticky Navigation */}
-      <nav className="bg-white border-b border-brand-sand/60 sticky top-0 z-50">
+      <nav className="relative z-20 bg-white border-b border-brand-sand/60 lg:sticky lg:top-0 lg:z-50">
         <div className="max-w-page mx-auto px-6 sm:px-12 h-[88px] flex items-center justify-between gap-4">
           {/* Brand Logo & Tagline */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
@@ -113,70 +131,95 @@ export function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex lg:hidden items-center gap-3">
-            <Link
-              href="/make-payment"
-              className="inline-flex items-center justify-center px-3 py-1.5 bg-brand-gold-light text-brand-dark font-semibold text-xs"
-            >
-              Pay
-            </Link>
+          <div className="flex lg:hidden items-center">
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-brand-navy hover:text-brand-gold focus:outline-hidden"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="relative grid size-11 place-items-center border border-brand-sand bg-white text-brand-navy transition-colors duration-200 hover:border-brand-gold hover:text-brand-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
               aria-label="Toggle navigation menu"
+              aria-controls="mobile-navigation"
+              aria-expanded={mobileMenuOpen}
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              <span className="sr-only">Menu</span>
+              <span className={`absolute h-px w-5 bg-current transition-transform duration-200 ease-out ${mobileMenuOpen ? "rotate-45" : "-translate-y-1.5"}`} />
+              <span className={`absolute h-px w-5 bg-current transition-opacity duration-150 ${mobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
+              <span className={`absolute h-px w-5 bg-current transition-transform duration-200 ease-out ${mobileMenuOpen ? "-rotate-45" : "translate-y-1.5"}`} />
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-brand-sand/60 px-4 py-4 space-y-2">
+        {/* Full-screen mobile navigation */}
+        <div
+          id="mobile-navigation"
+          aria-hidden={!mobileMenuOpen}
+          className={`fixed inset-0 z-30 flex min-h-dvh flex-col bg-brand-navy px-6 py-6 text-white transition-[opacity,transform,visibility] duration-300 ease-out lg:hidden ${
+            mobileMenuOpen
+              ? "visible translate-y-0 opacity-100"
+              : "pointer-events-none invisible translate-y-3 opacity-0"
+          }`}
+        >
+          <div className="mx-auto flex w-full max-w-page items-center justify-between border-b border-white/20 pb-6">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3"
+            >
+              <div className="grid size-10 place-items-center border border-white/20 bg-brand-navy-light">
+                <Image
+                  src="/images/Luah_Partners_logo.png"
+                  alt="Luah Partners"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+              </div>
+              <span className="text-base font-semibold tracking-tight">Luah Partners</span>
+            </Link>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="relative grid size-11 place-items-center border border-white/30 text-white transition-colors duration-200 hover:border-brand-gold-light hover:text-brand-gold-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold-light"
+              aria-label="Close navigation menu"
+            >
+              <span className="absolute h-px w-5 rotate-45 bg-current" />
+              <span className="absolute h-px w-5 -rotate-45 bg-current" />
+            </button>
+          </div>
+          <div className="mx-auto flex w-full max-w-page flex-1 flex-col justify-center py-10">
+            <p className="text-xs font-bold uppercase tracking-tag text-brand-gold-light">Navigation</p>
+            <nav aria-label="Mobile navigation" className="mt-6 border-t border-white/20">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-base font-medium text-brand-navy hover:text-brand-gold border-b border-brand-sand/30"
+                className={`flex items-center justify-between border-b border-white/20 py-4 text-2xl font-semibold tracking-tight transition-colors duration-150 hover:text-brand-gold-light ${
+                  pathname === link.href ? "text-brand-gold-light" : "text-white"
+                }`}
               >
                 {link.label}
+                <span aria-hidden="true" className="text-lg font-normal">→</span>
               </Link>
             ))}
-            <div className="pt-2">
+            </nav>
+            <div className="pt-7">
               <Link
                 href="/make-payment"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full inline-flex items-center justify-center px-6 py-3 bg-brand-gold-light text-brand-dark font-semibold text-sm"
+                className="inline-flex min-h-12 w-full items-center justify-center bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-dark transition-colors duration-150 hover:bg-brand-gold"
               >
                 Make a payment
               </Link>
             </div>
           </div>
-        )}
+          <div className="mx-auto flex w-full max-w-page items-center justify-between border-t border-white/20 pt-5 text-xs text-brand-slate">
+            <a href="tel:8008002911" className="transition-colors hover:text-white">800 800 2911</a>
+            <a href="mailto:info@luahpartners.com" className="transition-colors hover:text-white">info@luahpartners.com</a>
+          </div>
+        </div>
       </nav>
-    </header>
+      </header>
+      <div aria-hidden="true" className="h-[88px] lg:hidden" />
+    </>
   );
 }

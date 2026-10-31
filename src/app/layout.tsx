@@ -5,6 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import "./phone-input.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import NprogressProvider from "@/components/NprogressProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,9 +22,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans bg-white text-brand-navy">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <NprogressProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </NprogressProvider>
       </body>
     </html>
   );
