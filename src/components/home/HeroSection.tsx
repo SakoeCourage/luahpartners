@@ -17,14 +17,14 @@ export function HeroSection() {
           </div>
 
           {/* Main Hero Headline */}
-          <h1 className="mt-6 text-4xl sm:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-[1.08]">
+          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[60px] lg:leading-[64.8px] font-bold text-white leading-[1.08]">
             Building and <br />
             stewarding homes <br />
             in the capital region
           </h1>
 
           {/* Subtext Paragraph */}
-          <p className="mt-6 text-base sm:text-lg text-brand-slate leading-relaxed max-w-xl">
+          <p className="mt-6 text-base text-white leading-7 max-w-xl">
             Luah Partners, Inc. acquires, develops, finances, leases, and
             manages residential real estate across Washington, DC and Maryland —
             from single-family homes to multi-family communities.
@@ -33,7 +33,7 @@ export function HeroSection() {
           {/* Brand Promise Italic Quote */}
           <div className="mt-8 flex items-center gap-3">
             <span className="w-6 h-px bg-brand-sand/50" />
-            <p className="text-base sm:text-lg italic text-brand-sand font-serif">
+            <p className="text-lg italic text-white leading-7">
               Every home, a blessing.
             </p>
           </div>
@@ -42,7 +42,7 @@ export function HeroSection() {
           <div className="mt-10 flex flex-wrap items-center gap-3.5">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-brand-gold hover:bg-brand-gold-dark text-white font-semibold text-sm transition-colors shadow-xs"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-brand-gold-light hover:bg-brand-gold text-brand-dark font-semibold text-sm transition-colors shadow-xs"
             >
               <span>Our services</span>
               <ArrowRightIcon size={15} />
@@ -79,4 +79,3 @@ export function HeroSection() {
     </section>
   );
 }
-

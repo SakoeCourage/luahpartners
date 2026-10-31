@@ -47,21 +47,21 @@ const pillars: Pillar[] = [
 
 export function PillarsSection() {
   return (
-    <section className="w-full bg-white font-sans py-20 lg:py-24 border-b border-brand-sand/50">
+    <section className="w-full bg-white font-sans py-20 lg:py-28 border-b border-brand-sand/50">
       <div className="max-w-page mx-auto px-6 sm:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12">
           {/* Left Column: Section Intro & Mission */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
+            <div className="space-y-5">
               <span className="text-xs font-semibold uppercase tracking-tag text-brand-gold">
                 What we do
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight">
                 A full-cycle <br />
                 residential <br />
                 platform.
               </h2>
-              <p className="text-brand-muted text-base sm:text-lg leading-relaxed pt-2 max-w-md">
+              <p className="text-brand-muted text-base leading-7 pt-2 max-w-md">
                 We control the asset from land through lease-up, which keeps
                 quality, cost, and resident experience in one accountable place.
               </p>
@@ -79,17 +79,22 @@ export function PillarsSection() {
           </div>
 
           {/* Right Column: 2-Column Numbered Pillars */}
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 sm:gap-y-12 border-t border-brand-sand/60 pt-8">
-              {pillars.map((pillar) => (
-                <div key={pillar.number} className="space-y-2">
-                  <span className="text-xs font-semibold text-brand-gold block font-mono">
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-brand-sand pt-px">
+              {pillars.map((pillar, idx) => (
+                <div
+                  key={pillar.number}
+                  className={`border-b border-brand-sand py-6 ${
+                    idx === pillars.length - 1 ? "sm:col-span-2" : ""
+                  } ${idx % 2 === 0 ? "sm:pr-8" : "sm:pl-8"}`}
+                >
+                  <span className="text-xs font-semibold text-brand-gold block">
                     {pillar.number}
                   </span>
-                  <h3 className="text-lg font-bold text-brand-navy">
+                  <h3 className="mt-2 text-xl font-semibold leading-7 text-brand-dark">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-brand-muted leading-relaxed">
+                  <p className="mt-2 text-sm text-brand-muted leading-6">
                     {pillar.description}
                   </p>
                 </div>
@@ -101,4 +106,3 @@ export function PillarsSection() {
     </section>
   );
 }
-

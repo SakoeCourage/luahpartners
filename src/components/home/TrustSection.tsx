@@ -34,7 +34,7 @@ const trustBadges = [
 
 export function TrustSection() {
   return (
-    <section className="w-full bg-white border-b border-brand-sand/50 font-sans py-14 sm:py-16">
+    <section className="w-full bg-white font-sans py-12">
       <div className="max-w-page mx-auto px-6 sm:px-12">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-8">
@@ -44,24 +44,32 @@ export function TrustSection() {
           </span>
         </div>
 
-        {/* 4-Column Grid with Sand Border Dividers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-brand-sand/60 divide-y sm:divide-y-0 sm:divide-x divide-brand-sand/60 bg-white">
+        {/* The Figma cards are framed only above and below, with dividers between cards. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-y border-brand-sand bg-white">
           {trustBadges.map((badge, idx) => {
             const Icon = badge.icon;
             return (
               <div
                 key={badge.title}
-                className={`p-6 sm:p-8 flex flex-col justify-start ${
-                  idx === 2 ? "sm:border-t lg:border-t-0 border-brand-sand/60" : ""
-                } ${idx === 3 ? "sm:border-t lg:border-t-0 border-brand-sand/60" : ""}`}
+                className={`flex flex-col justify-start py-6 lg:py-2 ${
+                  idx < trustBadges.length - 1
+                    ? "border-b border-brand-sand lg:border-b-0 lg:border-r"
+                    : ""
+                } ${
+                  idx === 0
+                    ? "lg:pr-7"
+                    : idx === trustBadges.length - 1
+                      ? "lg:pl-7"
+                      : "lg:px-7"
+                }`}
               >
                 <div className="w-10 h-10 flex items-center justify-start text-brand-gold">
                   <Icon size={24} />
                 </div>
-                <h3 className="mt-4 text-base font-bold text-brand-navy">
+                <h3 className="mt-2 text-lg font-semibold leading-7 text-brand-navy">
                   {badge.title}
                 </h3>
-                <p className="mt-2 text-xs text-brand-muted leading-relaxed">
+                <p className="mt-2 text-sm text-brand-muted leading-6">
                   {badge.description}
                 </p>
               </div>
@@ -72,4 +80,3 @@ export function TrustSection() {
     </section>
   );
 }
-
