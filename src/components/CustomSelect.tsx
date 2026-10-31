@@ -20,6 +20,9 @@ type CustomSelectProps = {
   name: string;
   options: SelectOption[];
   required?: boolean;
+  onValueChange?: (value: string) => void;
+  size?: "field" | "compact";
+  containerClassName?: string;
 };
 
 export function CustomSelect({
@@ -28,6 +31,9 @@ export function CustomSelect({
   name,
   options,
   required = false,
+  onValueChange,
+  size = "field",
+  containerClassName = "relative mt-[10px]",
 }: CustomSelectProps) {
   const initialIndex = Math.max(
     0,
@@ -61,6 +67,7 @@ export function CustomSelect({
   function chooseOption(index: number) {
     setSelectedIndex(index);
     setActiveIndex(index);
+    onValueChange?.(options[index].value);
     setIsOpen(false);
     triggerRef.current?.focus();
   }
@@ -100,7 +107,7 @@ export function CustomSelect({
   }
 
   return (
-    <div ref={containerRef} className="relative mt-[10px]">
+    <div ref={containerRef} className={containerClassName}>
       <input type="hidden" name={name} value={selectedOption.value} required={required} />
       <button
         ref={triggerRef}
@@ -111,7 +118,9 @@ export function CustomSelect({
         aria-labelledby={ariaLabelledBy}
         onClick={() => (isOpen ? setIsOpen(false) : openList())}
         onKeyDown={handleKeyDown}
-        className={`flex min-h-[52px] w-full items-center justify-between border bg-white px-4 text-left text-sm font-normal text-brand-navy outline-none focus:border-brand-gold ${
+        className={`flex w-full items-center justify-between border bg-white text-left font-normal text-brand-navy outline-none focus:border-brand-gold ${
+          size === "compact" ? "min-h-7 px-2 text-xs" : "min-h-[52px] px-4 text-sm"
+        } ${
           isOpen ? "border-brand-gold" : "border-brand-sand"
         }`}
       >
@@ -130,7 +139,7 @@ export function CustomSelect({
           id={listboxId}
           role="listbox"
           aria-labelledby={ariaLabelledBy}
-          className="absolute z-20 mt-0 max-h-[260px] w-full overflow-auto border border-brand-sand bg-white py-2"
+          className="absolute z-20 mt-0 max-h-[260px] w-full overflow-auto border border-brand-sand bg-white py-1"
         >
           {options.map((option, index) => {
             const isSelected = index === selectedIndex;
@@ -144,7 +153,9 @@ export function CustomSelect({
                   aria-selected={isSelected}
                   onMouseEnter={() => setActiveIndex(index)}
                   onClick={() => chooseOption(index)}
-                  className={`block w-full px-6 py-2.5 text-left text-sm text-brand-navy outline-none ${
+                  className={`block w-full text-left text-brand-navy outline-none ${
+                    size === "compact" ? "px-2 py-1 text-xs" : "px-6 py-2.5 text-sm"
+                  } ${
                     isSelected
                       ? "bg-[#dedfe1]"
                       : isActive
