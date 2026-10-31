@@ -93,7 +93,7 @@ export default function AccessibilityFairHousingPage() {
     <>
       <section className="bg-brand-surface">
         <div className="mx-auto max-w-page px-6 py-14 sm:px-12 sm:py-16">
-          <p className="text-xs font-bold uppercase tracking-tag text-brand-gold">
+          <p className="text-xs font-bold uppercase tracking-tag text-brand-gold-light">
             Legal &amp; Policies
           </p>
           <h1 className="mt-6 text-4xl font-bold leading-[1.12] text-brand-navy sm:text-5xl lg:text-[56px]">
@@ -120,7 +120,7 @@ export default function AccessibilityFairHousingPage() {
                 aria-current={isCurrent ? "page" : undefined}
                 className={`whitespace-nowrap transition-colors ${
                   isCurrent
-                    ? "font-bold text-brand-gold"
+                    ? "font-bold text-brand-gold-light"
                     : "text-brand-muted hover:text-brand-navy"
                 }`}
               >
@@ -135,7 +135,7 @@ export default function AccessibilityFairHousingPage() {
         <div className="mx-auto grid max-w-page gap-10 px-6 py-14 sm:px-12 sm:py-16 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
           <aside className="self-start lg:sticky lg:top-36">
             <nav aria-label="On this page">
-              <p className="text-xs font-bold uppercase tracking-tag text-brand-gold">
+              <p className="text-xs font-bold uppercase tracking-tag text-brand-gold-light">
                 On this page
               </p>
               <ol className="mt-4 space-y-4 text-sm">
