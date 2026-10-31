@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   title: "Feedback | Luah Partners",
   description: null,
   alternates: { canonical: "https://www.luahpartners.com/feedback" },
-  openGraph: { title: "Feedback | Luah Partners", url: "https://www.luahpartners.com/feedback", siteName: "Luah Partners", type: "website", images: ["https://www.luahpartners.com/images/home-improvement-og.png"] },
+  openGraph: {
+    title: "Feedback | Luah Partners",
+    url: "https://www.luahpartners.com/feedback",
+    siteName: "Luah Partners",
+    type: "website",
+    images: [{ url: "https://www.luahpartners.com/images/home-improvement-og.png", width: 2500, height: 1330 }],
+  },
   twitter: { card: "summary_large_image", title: "Feedback | Luah Partners", images: ["https://www.luahpartners.com/images/home-improvement-og.png"] },
 };
 
