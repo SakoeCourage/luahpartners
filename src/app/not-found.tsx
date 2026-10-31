@@ -8,20 +8,19 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="max-w-page mx-auto px-6 py-32 text-center">
-      <span className="text-xs font-semibold uppercase tracking-tag text-brand-gold">Error 404</span>
-      <h1 className="mt-3 text-5xl font-bold tracking-tight text-brand-navy">Page Not Found</h1>
-      <p className="mt-4 text-base text-brand-muted max-w-md mx-auto">
-        The page you are looking for doesn’t exist or has been moved.
-      </p>
-      <div className="mt-8">
-        <Link
-          href="/"
-          className="inline-flex items-center px-6 py-3 text-sm font-semibold bg-brand-gold text-white hover:bg-brand-gold-dark transition-colors"
-        >
-          Return Home
-        </Link>
-      </div>
-    </div>
+    <section className="flex min-h-[640px] flex-col items-center bg-brand-surface px-6 py-24 text-center sm:px-12 sm:py-28">
+      <p className="text-sm font-bold text-brand-gold-light">ERROR 404</p>
+      <span aria-hidden="true" className="mt-8 h-0.5 w-12 bg-brand-gold-light" />
+      <h1 className="mt-8 text-5xl font-bold leading-[1.1] tracking-tight text-brand-navy sm:text-6xl lg:text-[64px]">
+        You&apos;ve reached nowhere
+      </h1>
+      <Link
+        href="/"
+        className="mt-8 inline-flex min-h-12 items-center gap-3 bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold"
+      >
+        Back to Homepage
+        <span aria-hidden="true" className="text-lg leading-none">→</span>
+      </Link>
+    </section>
   );
 }
