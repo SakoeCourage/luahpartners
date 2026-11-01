@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
+import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact | Luah Partners",
@@ -21,20 +19,6 @@ export const metadata: Metadata = {
     images: ["https://www.luahpartners.com/images/home-improvement-og.png"],
   },
 };
-
-const audienceOptions = [
-  { value: "prospective-resident", label: "Prospective resident" },
-  { value: "current-resident", label: "Current resident" },
-  { value: "property-owner", label: "Property owner" },
-  { value: "seller-landowner", label: "Seller or Landowner" },
-  { value: "vendor", label: "Vendor" },
-];
-
-const inputClassName = "mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold";
-
-function Arrow() {
-  return <Image src="/images/listing-arrow-right.svg" alt="" aria-hidden="true" width={16} height={16} />;
-}
 
 export default function ContactPage() {
   return (
@@ -66,18 +50,7 @@ export default function ContactPage() {
               </div>
             </aside>
 
-            <form className="border border-brand-sand bg-white p-6 sm:p-8">
-              <p className="text-xs text-brand-muted">* Required fields</p>
-              <div className="mt-6 space-y-6">
-                <label className="block text-sm font-semibold text-brand-navy">Name *<input name="name" required placeholder="Enter name" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Email *<input name="email" type="email" required placeholder="you@example.com" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Phone (optional)<span className="mt-[10px] block font-normal"><InternationalPhoneInput id="contact-phone" name="phone" ariaLabel="Phone number" /></span></label>
-                <div className="block text-sm font-semibold text-brand-navy"><span id="contact-audience-label">I am a... (optional)</span><CustomSelect ariaLabelledBy="contact-audience-label" defaultValue="prospective-resident" name="audience" options={audienceOptions} /><span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">Prospective resident · Current resident · Property owner · Seller or Landowner · Vendor</span></div>
-                <label className="block text-sm font-semibold text-brand-navy">Message (optional)<textarea name="message" placeholder="How can we help" className={`${inputClassName} min-h-[120px] resize-y p-4`} /></label>
-              </div>
-              <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">Send message<Arrow /></button>
-              <p className="mt-6 text-[13px] leading-[1.8] text-brand-muted">By submitting you agree to our <Link href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</Link>. We do not sell your information.</p>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </section>

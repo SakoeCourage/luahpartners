@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
+import { ListingAlertForm } from "@/components/forms/ListingAlertForm";
 
 export const metadata: Metadata = {
   title: "Listings | Luah Partners",
@@ -79,14 +78,6 @@ const leasingSteps = [
     detail:
       "Sign a lease that meets DC or Maryland requirements, then coordinate move-in with our team.",
   },
-];
-
-const interestOptions = [
-  { value: "lease-now", label: "A home for lease now" },
-  { value: "studio-one", label: "Studio or 1 bedroom" },
-  { value: "two-three", label: "2 or 3 bedroom" },
-  { value: "multifamily", label: "Multifamily or investment unit" },
-  { value: "not-sure", label: "Not sure yet" },
 ];
 
 function DetailCard({
@@ -309,69 +300,7 @@ export default function ListingsPage() {
               </div>
             </aside>
 
-            <form className="border border-brand-sand bg-white p-6 sm:p-8">
-              <p className="text-xs text-brand-muted">* Required fields</p>
-              <div className="mt-6 space-y-6">
-                <label className="block text-sm font-semibold text-brand-navy">
-                  Name *
-                  <input
-                    name="name"
-                    required
-                    placeholder="Your name"
-                    className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted focus:border-brand-gold focus:outline-none"
-                  />
-                </label>
-                <label className="block text-sm font-semibold text-brand-navy">
-                  Email *
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted focus:border-brand-gold focus:outline-none"
-                  />
-                </label>
-                <label className="block text-sm font-semibold text-brand-navy">
-                  Phone (optional)
-                  <span className="mt-[10px] block font-normal">
-                    <InternationalPhoneInput />
-                  </span>
-                </label>
-                <div className="block text-sm font-semibold text-brand-navy">
-                  <span id="interest-label">Looking for *</span>
-                  <CustomSelect
-                    ariaLabelledBy="interest-label"
-                    defaultValue="lease-now"
-                    name="interest"
-                    options={interestOptions}
-                    required
-                  />
-                  <span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">
-                    A home for lease now · Studio or 1 bedroom · 2 or 3 bedroom
-                    · Multifamily or investment unit · Not sure yet
-                  </span>
-                </div>
-                <label className="block text-sm font-semibold text-brand-navy">
-                  Preferred area (optional)
-                  <input
-                    name="preferredArea"
-                    placeholder="Neighborhood, city or county"
-                    className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted focus:border-brand-gold focus:outline-none"
-                  />
-                </label>
-              </div>
-              <button
-                type="submit"
-                className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold"
-              >
-                NOTIFY ME
-                <ButtonArrow />
-              </button>
-              <p className="mt-6 text-[13px] leading-[1.8] text-brand-muted">
-                By submitting you agree to our Privacy Policy. We do not sell
-                your information.
-              </p>
-            </form>
+            <ListingAlertForm />
           </div>
         </div>
       </section>

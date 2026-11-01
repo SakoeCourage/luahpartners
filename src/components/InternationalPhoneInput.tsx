@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 
 type InternationalPhoneInputProps = {
@@ -8,6 +7,11 @@ type InternationalPhoneInputProps = {
   name?: string;
   ariaLabel?: string;
   required?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
+  onBlur?: () => void;
+  hasError?: boolean;
+  ariaDescribedBy?: string;
 };
 
 export function InternationalPhoneInput({
@@ -15,14 +19,18 @@ export function InternationalPhoneInput({
   name = "phone",
   ariaLabel = "Phone number",
   required = false,
+  value = "",
+  onChange,
+  onBlur,
+  hasError = false,
+  ariaDescribedBy,
 }: InternationalPhoneInputProps) {
-  const [phone, setPhone] = useState("");
-
   return (
     <PhoneInput
       country="us"
-      value={phone}
-      onChange={(value) => setPhone(value)}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
       enableSearch
       disableCountryCode
       countryCodeEditable={false}
@@ -35,8 +43,11 @@ export function InternationalPhoneInput({
         name,
         id,
         "aria-label": ariaLabel,
+        "aria-describedby": ariaDescribedBy,
+        "aria-invalid": hasError || undefined,
         required,
       }}
+      inputClass={hasError ? "luah-phone-input-error" : undefined}
     />
   );
 }

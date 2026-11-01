@@ -28,6 +28,10 @@
   box-shadow: none;
 }
 
+.luah-phone-input .form-control.luah-phone-input-error {
+  border-color: #dc2626;
+}
+
 .luah-phone-input:has(.flag-dropdown.open) .form-control {
   border-color: var(--brand-gold);
 }

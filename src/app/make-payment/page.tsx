@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CustomSelect } from "@/components/CustomSelect";
+import { PaymentForm } from "@/components/forms/PaymentForm";
 
 const paymentDescription = "All payments are collected in United States dollars (USD) and processed by Stripe. Luah Partners does not see or store your card or bank account numbers. Your statement will read LUAH PARTNERS.";
 
@@ -37,15 +37,6 @@ const protections = [
   { number: "02", title: "No convenience fee", detail: "We charge no surcharge or convenience fee — the amount you enter is the amount charged." },
   { number: "03", title: "Stripe checkout", detail: "Card and bank details are entered on Stripe’s PCI-DSS Level 1 certified checkout, not on our servers." },
 ];
-
-const paymentTypeOptions = [
-  { value: "rent", label: "Rent" },
-  { value: "security-deposit", label: "Security Deposit" },
-  { value: "application-fee", label: "Application Fee" },
-  { value: "invoice", label: "Invoice" },
-];
-
-const inputClassName = "mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold";
 
 function Arrow() {
   return <Image src="/images/listing-arrow-right.svg" alt="" aria-hidden="true" width={16} height={16} />;
@@ -99,17 +90,7 @@ export default function MakePaymentPage() {
               </div>
             </aside>
 
-            <form className="border border-brand-sand bg-white p-6 sm:p-8">
-              <p className="text-xs text-brand-muted">* Required fields</p>
-              <div className="mt-6 space-y-6">
-                <label className="block text-sm font-semibold text-brand-navy">Full name *<input name="name" required placeholder="Your name" className={inputClassName} /></label>
-                <div className="block text-sm font-semibold text-brand-navy"><span id="payment-type-label">Payment type *</span><div className="max-w-[248px]"><CustomSelect ariaLabelledBy="payment-type-label" defaultValue="rent" name="paymentType" options={paymentTypeOptions} required /></div></div>
-                <label className="block text-sm font-semibold text-brand-navy">Email for receipt *<input name="email" type="email" required placeholder="you@example.com" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Amount (USD) *<input name="amount" type="number" min="0.01" step="0.01" inputMode="decimal" required placeholder="$  2,150.00" className={inputClassName} /></label>
-              </div>
-              <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">Continue to secure checkout<Arrow /></button>
-              <p className="mt-6 text-[13px] leading-[1.8] text-brand-muted">Your card and bank details are entered on Stripe, not on this form.</p>
-            </form>
+            <PaymentForm />
           </div>
         </div>
       </section>

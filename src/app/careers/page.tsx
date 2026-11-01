@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CustomSelect } from "@/components/CustomSelect";
 import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/DataTable";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
+import { CareersApplicationForm } from "@/components/forms/CareersApplicationForm";
 
 const careersDescription =
   "We're a small team that does the work rather than brokering it out, and we're looking for people who want ownership of a market they already know. If one of the roles below fits, tell us — and if none of them do, tell us that too.";
@@ -77,27 +76,6 @@ const hiringSteps = [
   { number: "04", title: "Written offer", detail: "Role, schedule, and compensation in writing before you start. Background and licensing checks where the role requires them." },
 ];
 
-const roleOptions = [
-  { value: "", label: "Choose one" },
-  { value: "marketing", label: "Marketing Agent" },
-  { value: "sales", label: "Sales Agent" },
-  { value: "scout", label: "Property Scout" },
-  { value: "manager", label: "Property Manager" },
-  { value: "business-development", label: "Business Development Specialist" },
-  { value: "leasing", label: "Leasing Agent" },
-  { value: "trades", label: "Skilled Trades and Field Crew" },
-  { value: "general", label: "Something Else or General Application" },
-];
-
-const experienceOptions = [
-  { value: "less-than-one", label: "Less than 1 year" },
-  { value: "one-to-three", label: "1 - 3 years" },
-  { value: "three-to-seven", label: "3 - 7 years" },
-  { value: "seven-plus", label: "7+ years" },
-];
-
-const inputClassName = "mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold";
-
 function Arrow() {
   return <Image src="/images/listing-arrow-right.svg" alt="" aria-hidden="true" width={16} height={16} />;
 }
@@ -169,23 +147,7 @@ export default function CareersPage() {
               </div>
             </aside>
 
-            <form className="border border-brand-sand bg-white p-6 sm:p-8">
-              <p className="text-xs text-brand-muted">* Required fields</p>
-              <div className="mt-6 space-y-6">
-                <label className="block text-sm font-semibold text-brand-navy">Name *<input name="name" required placeholder="Your name" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Email *<input name="email" type="email" required placeholder="you@example.com" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Phone *<span className="mt-[10px] block font-normal"><InternationalPhoneInput id="career-phone" name="phone" ariaLabel="Phone number" required /></span></label>
-                <div className="block text-sm font-semibold text-brand-navy"><span id="career-role-label">Role *</span><CustomSelect ariaLabelledBy="career-role-label" defaultValue="" name="role" options={roleOptions} required /><span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">Marketing Agent · Sales Agent · Property Scout · Property Manager · Business Development Specialist · Leasing Agent · Skilled Trades and Field Crew · Something Else or General Application</span></div>
-                <label className="block text-sm font-semibold text-brand-navy">Where are you based *<input name="location" required placeholder="Neighborhood, city or county" className={inputClassName} /></label>
-                <div className="block text-sm font-semibold text-brand-navy"><span id="career-experience-label">Years of experience *</span><CustomSelect ariaLabelledBy="career-experience-label" defaultValue="less-than-one" name="experience" options={experienceOptions} required /><span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">Less than 1 year · 1 - 3 years · 3 - 7 years · 7+ years</span></div>
-                <label className="block text-sm font-semibold text-brand-navy">Resume *<span className="relative mt-[10px] flex min-h-[100px] w-full items-center justify-between border border-brand-sand px-4 text-sm font-normal text-brand-muted"><span>Choose file</span><Image src="/images/careers-upload.svg" alt="" aria-hidden="true" width={18} height={18} /><input name="resume" type="file" required accept=".pdf,.doc,.docx" className="absolute inset-0 cursor-pointer opacity-0" /></span></label>
-                <p className="-mt-4 text-xs leading-[1.8] text-brand-muted">PDF or Word document. Prefer email? Send it to Info@luahpartners.com instead. One file.</p>
-                <label className="block text-sm font-semibold text-brand-navy">LinkedIn or portfolio (optional)<input name="portfolio" placeholder="A link to your profile or work samples" className={inputClassName} /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Why this role *<textarea name="why" required placeholder="Tell us about your experience and what draws you to this work" className={`${inputClassName} min-h-[120px] resize-y p-4`} /></label>
-              </div>
-              <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">Submit application<Arrow /></button>
-              <p className="mt-6 text-[13px] leading-[1.8] text-brand-muted">By submitting you agree to our <Link href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</Link>. We do not sell your information. Prefer email? Send your resume to Info@luahpartners.com.</p>
-            </form>
+            <CareersApplicationForm />
           </div>
         </div>
       </section>

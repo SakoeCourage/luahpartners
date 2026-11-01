@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
-import { CustomSelect } from "@/components/CustomSelect";
 import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/DataTable";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
+import { HomeImprovementQuoteForm } from "@/components/forms/HomeImprovementQuoteForm";
 
 export const metadata: Metadata = {
   title: "Home Improvement | Luah Partners",
@@ -126,17 +124,6 @@ const hiringSteps = [
     title: "Work & walkthrough",
     detail: "We schedule the crew, keep you updated, and walk the finished work with you.",
   },
-];
-
-const serviceOptions = [
-  { value: "bathroom", label: "Bathroom remodeling" },
-  { value: "kitchen", label: "Kitchen remodeling" },
-  { value: "concrete", label: "Concrete & masonry" },
-  { value: "flooring", label: "Flooring & drywall" },
-  { value: "painting", label: "Painting" },
-  { value: "decks", label: "Decks, patios & exterior" },
-  { value: "repair", label: "General repair or handyman" },
-  { value: "not-sure", label: "Not sure yet" },
 ];
 
 function Arrow() {
@@ -295,23 +282,7 @@ export default function HomeImprovementPage() {
               </div>
             </aside>
 
-            <form className="border border-brand-sand bg-white p-6 sm:p-8">
-              <p className="text-xs text-brand-muted">* Required fields</p>
-              <div className="mt-6 space-y-6">
-                <label className="block text-sm font-semibold text-brand-navy">Name *<input name="name" required placeholder="Your name" className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold" /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Email *<input name="email" type="email" required placeholder="you@example.com" className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold" /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Phone *<span className="mt-[10px] block font-normal"><InternationalPhoneInput id="quote-phone" name="phone" ariaLabel="Phone number" required /></span></label>
-                <div className="block text-sm font-semibold text-brand-navy">
-                  <span id="service-needed-label">Service needed *</span>
-                  <CustomSelect ariaLabelledBy="service-needed-label" defaultValue="bathroom" name="serviceNeeded" options={serviceOptions} required />
-                  <span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">Bathroom remodeling · Kitchen remodeling · Concrete & masonry · Flooring & drywall · Painting · Decks, patios & exterior · General repair or handyman · Not sure yet</span>
-                </div>
-                <label className="block text-sm font-semibold text-brand-navy">Property address *<input name="address" required placeholder="Street, city DC or MD" className="mt-[10px] min-h-[52px] w-full border border-brand-sand px-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold" /></label>
-                <label className="block text-sm font-semibold text-brand-navy">Project details *<textarea name="details" required placeholder="What are you looking to have done?" className="mt-[10px] min-h-[120px] w-full resize-y border border-brand-sand p-4 text-sm font-normal text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold" /></label>
-              </div>
-              <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">REQUEST A QUOTE<Arrow /></button>
-              <p className="mt-6 text-[13px] leading-[1.8] text-brand-muted">By submitting you agree to our <Link href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</Link>. We do not sell your information.</p>
-            </form>
+            <HomeImprovementQuoteForm />
           </div>
         </div>
       </section>

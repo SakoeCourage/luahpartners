@@ -17,10 +17,14 @@ type SelectOption = {
 type CustomSelectProps = {
   ariaLabelledBy: string;
   defaultValue: string;
+  value?: string;
   name: string;
   options: SelectOption[];
   required?: boolean;
   onValueChange?: (value: string) => void;
+  onBlur?: () => void;
+  hasError?: boolean;
+  ariaDescribedBy?: string;
   size?: "field" | "compact";
   containerClassName?: string;
 };
@@ -28,10 +32,14 @@ type CustomSelectProps = {
 export function CustomSelect({
   ariaLabelledBy,
   defaultValue,
+  value,
   name,
   options,
   required = false,
   onValueChange,
+  onBlur,
+  hasError = false,
+  ariaDescribedBy,
   size = "field",
   containerClassName = "relative mt-[10px]",
 }: CustomSelectProps) {
@@ -58,6 +66,16 @@ export function CustomSelect({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     return () => document.removeEventListener("pointerdown", closeOnOutsidePointer);
   }, []);
+
+  useEffect(() => {
+    if (value === undefined) return;
+
+    const valueIndex = options.findIndex((option) => option.value === value);
+    if (valueIndex >= 0) {
+      setSelectedIndex(valueIndex);
+      setActiveIndex(valueIndex);
+    }
+  }, [value]);
 
   function openList() {
     setActiveIndex(selectedIndex);
@@ -116,12 +134,19 @@ export function CustomSelect({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={hasError || undefined}
         onClick={() => (isOpen ? setIsOpen(false) : openList())}
+        onBlur={onBlur}
         onKeyDown={handleKeyDown}
         className={`flex w-full items-center justify-between border bg-white text-left font-normal text-brand-navy outline-none focus:border-brand-gold ${
           size === "compact" ? "min-h-7 px-2 text-xs" : "min-h-[52px] px-4 text-sm"
         } ${
-          isOpen ? "border-brand-gold" : "border-brand-sand"
+          hasError
+            ? "border-red-600"
+            : isOpen
+              ? "border-brand-gold"
+              : "border-brand-sand"
         }`}
       >
         <span>{selectedOption.label}</span>
