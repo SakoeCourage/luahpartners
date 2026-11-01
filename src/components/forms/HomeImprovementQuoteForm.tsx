@@ -4,15 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CustomSelect } from "@/components/CustomSelect";
 import {
-  FieldErrorMessage,
   FormReadyMessage,
   requiredPhoneSchema,
 } from "./FormValidation";
-import { FieldShell, PhoneField, TextareaField, TextField } from "./FormFields";
+import { SelectField, PhoneField, TextareaField, TextField } from "./FormFields";
 
 const serviceOptions = [
   { value: "bathroom", label: "Bathroom remodeling" },
@@ -53,12 +51,20 @@ export function HomeImprovementQuoteForm() {
     <form className="border border-brand-sand bg-white p-6 sm:p-8" noValidate onSubmit={handleSubmit(() => setIsReady(true), () => setIsReady(false))}>
       <p className="text-xs text-brand-muted">* Required fields</p>
       <div className="mt-6 space-y-6">
-        <TextField label="Name *" error={errors.name} errorId="quote-name-error" placeholder="Your name" {...register("name")} />
-        <TextField label="Email *" error={errors.email} errorId="quote-email-error" type="email" placeholder="you@example.com" {...register("email")} />
-        <PhoneField control={control} name="phone" label="Phone *" error={errors.phone} errorId="quote-phone-error" id="quote-phone" required />
-        <FieldShell label={<span id="service-needed-label">Service needed *</span>} error={errors.serviceNeeded} errorId="quote-service-error" hint="Bathroom remodeling · Kitchen remodeling · Concrete & masonry · Flooring & drywall · Painting · Decks, patios & exterior · General repair or handyman · Not sure yet"><Controller control={control} name="serviceNeeded" render={({ field }) => <CustomSelect ariaLabelledBy="service-needed-label" defaultValue="bathroom" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={[...serviceOptions]} required hasError={Boolean(errors.serviceNeeded)} ariaDescribedBy="quote-service-error" />} /></FieldShell>
-        <TextField label="Property address *" error={errors.address} errorId="quote-address-error" placeholder="Street, city DC or MD" {...register("address")} />
-        <TextareaField label="Project details *" error={errors.details} errorId="quote-details-error" placeholder="What are you looking to have done?" {...register("details")} />
+        <TextField label="Name" error={errors.name} errorId="quote-name-error" placeholder="Your name" {...register("name")} required />
+        <TextField label="Email" error={errors.email} errorId="quote-email-error" type="email" placeholder="you@example.com" {...register("email")} required />
+        <PhoneField control={control} name="phone" label="Phone" error={errors.phone} errorId="quote-phone-error" id="quote-phone" required />
+        <SelectField
+          control={control}
+          name="serviceNeeded"
+          label="Service needed"
+          required
+          options={serviceOptions}
+          errorId="quote-service-error"
+          hint="Bathroom remodeling · Kitchen remodeling · Concrete & masonry · Flooring & drywall · Painting · Decks, patios & exterior · General repair or handyman · Not sure yet"
+        />
+        <TextField label="Property address" error={errors.address} errorId="quote-address-error" placeholder="Street, city DC or MD" {...register("address")} required />
+        <TextareaField label="Project details" error={errors.details} errorId="quote-details-error" placeholder="What are you looking to have done?" {...register("details")} required />
       </div>
       <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">REQUEST A QUOTE<Arrow /></button>
       <FormReadyMessage visible={isReady} />

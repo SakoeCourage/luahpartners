@@ -1,116 +1,95 @@
 "use client";
 
-import { forwardRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
-import { Controller, type Control, type FieldError, type FieldPath, type FieldValues } from "react-hook-form";
+import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } from "react";
+import { useController, type Control, type FieldPathByValue, type FieldValues } from "react-hook-form";
+import { CustomSelect, type SelectOption } from "@/components/CustomSelect";
 import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
-import { FieldErrorMessage, inputClassName } from "./FormValidation";
+import { FieldLayout, useFieldIds, type FieldPresentationProps } from "./FieldLayout";
+import { inputClassName } from "./FormValidation";
 
-type FieldShellProps = {
-  label: ReactNode;
-  error?: FieldError;
-  errorId: string;
-  children: ReactNode;
-  hint?: ReactNode;
+type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & FieldPresentationProps;
+
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+  { label, error, errorId, id, hint, required, className = "", ...inputProps }, ref,
+) {
+  const presentation = { label, error, errorId, id, hint, required };
+  const ids = useFieldIds(presentation);
+  return (
+    <FieldLayout {...presentation} ids={ids}>
+      <input {...inputProps} ref={ref} id={ids.id} required={required}
+        aria-invalid={Boolean(error)} aria-describedby={ids.describedBy}
+        className={`${inputClassName(Boolean(error))} ${className}`} />
+    </FieldLayout>
+  );
+});
+
+type TextareaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & FieldPresentationProps;
+
+export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>(function TextareaField(
+  { label, error, errorId, id, hint, required, className = "", ...textareaProps }, ref,
+) {
+  const presentation = { label, error, errorId, id, hint, required };
+  const ids = useFieldIds(presentation);
+  return (
+    <FieldLayout {...presentation} ids={ids}>
+      <textarea {...textareaProps} ref={ref} id={ids.id} required={required}
+        aria-invalid={Boolean(error)} aria-describedby={ids.describedBy}
+        className={`${inputClassName(Boolean(error))} min-h-[120px] resize-y p-4 ${className}`} />
+    </FieldLayout>
+  );
+});
+
+type ControlledFieldProps<T extends FieldValues> = FieldPresentationProps & {
+  control: Control<T>;
+  name: FieldPathByValue<T, string>;
 };
 
-export function FieldShell({ label, error, errorId, children, hint }: FieldShellProps) {
+export function SelectField<T extends FieldValues>({ control, name, options, ...presentation }: ControlledFieldProps<T> & {
+  options: readonly SelectOption[];
+}) {
+  const { field, fieldState } = useController({ control, name });
+  const error = presentation.error ?? fieldState.error;
+  const ids = useFieldIds({ ...presentation, error });
   return (
-    <div className="block text-sm font-semibold text-brand-navy">
-      <span>{label}</span>
-      {children}
-      <FieldErrorMessage id={errorId} error={error} />
-      {hint ? <span className="mt-[10px] block text-xs font-normal leading-[1.7] text-brand-muted">{hint}</span> : null}
-    </div>
+    <FieldLayout {...presentation} error={error} ids={ids}>
+      <CustomSelect
+        id={ids.id}
+        inputRef={field.ref}
+        ariaLabelledBy={ids.labelId}
+        ariaDescribedBy={ids.describedBy}
+        name={field.name}
+        value={field.value}
+        defaultValue={field.value}
+        options={options}
+        required={presentation.required}
+        onValueChange={field.onChange}
+        onBlur={field.onBlur}
+        hasError={Boolean(error)}
+      />
+    </FieldLayout>
   );
 }
 
-type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: ReactNode;
-  error?: FieldError;
-  errorId: string;
-};
-
-export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField({ label, error, errorId, className = "", ...inputProps }, ref) {
-  return (
-    <label className="block text-sm font-semibold text-brand-navy">
-      <span>{label}</span>
-      <input
-        {...inputProps}
-        ref={ref}
-        aria-invalid={Boolean(error)}
-        aria-describedby={errorId}
-        className={`${inputClassName(Boolean(error))} ${className}`}
-      />
-      <FieldErrorMessage id={errorId} error={error} />
-    </label>
-  );
-});
-
-type TextareaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  label: ReactNode;
-  error?: FieldError;
-  errorId: string;
-};
-
-export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>(function TextareaField({ label, error, errorId, className = "", ...textareaProps }, ref) {
-  return (
-    <label className="block text-sm font-semibold text-brand-navy">
-      <span>{label}</span>
-      <textarea
-        {...textareaProps}
-        ref={ref}
-        aria-invalid={Boolean(error)}
-        aria-describedby={errorId}
-        className={`${inputClassName(Boolean(error))} min-h-[120px] resize-y p-4 ${className}`}
-      />
-      <FieldErrorMessage id={errorId} error={error} />
-    </label>
-  );
-});
-
-type PhoneFieldProps<TFieldValues extends FieldValues> = {
-  control: Control<TFieldValues>;
-  name: FieldPath<TFieldValues>;
-  label: ReactNode;
-  error?: FieldError;
-  errorId: string;
-  id?: string;
+export function PhoneField<T extends FieldValues>({ control, name, ariaLabel = "Phone number", ...presentation }: ControlledFieldProps<T> & {
   ariaLabel?: string;
-  required?: boolean;
-};
-
-export function PhoneField<TFieldValues extends FieldValues>({
-  control,
-  name,
-  label,
-  error,
-  errorId,
-  id,
-  ariaLabel = "Phone number",
-  required = false,
-}: PhoneFieldProps<TFieldValues>) {
+}) {
+  const { field, fieldState } = useController({ control, name });
+  const error = presentation.error ?? fieldState.error;
+  const ids = useFieldIds({ ...presentation, error });
   return (
-    <label className="block text-sm font-semibold text-brand-navy">
-      <span>{label}</span>
-      <span className="mt-[10px] block font-normal">
-        <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <InternationalPhoneInput
-              id={id}
-              name={field.name}
-              ariaLabel={ariaLabel}
-              required={required}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              hasError={Boolean(error)}
-              ariaDescribedBy={errorId}
-            />
-          )}
+    <FieldLayout {...presentation} error={error} ids={ids}>
+      <div className="mt-[10px] font-normal">
+        <InternationalPhoneInput
+          id={ids.id}
+          name={field.name}
+          ariaLabel={ariaLabel}
+          required={presentation.required}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          hasError={Boolean(error)}
+          ariaDescribedBy={ids.describedBy}
         />
-      </span>
-      <FieldErrorMessage id={errorId} error={error} />
-    </label>
+      </div>
+    </FieldLayout>
   );
 }

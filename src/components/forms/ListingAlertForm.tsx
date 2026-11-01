@@ -4,15 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CustomSelect } from "@/components/CustomSelect";
 import {
-  FieldErrorMessage,
   FormReadyMessage,
   optionalPhoneSchema,
 } from "./FormValidation";
-import { FieldShell, PhoneField, TextField } from "./FormFields";
+import { SelectField, PhoneField, TextField } from "./FormFields";
 
 const interestOptions = [
   { value: "lease-now", label: "A home for lease now" },
@@ -60,12 +58,18 @@ export function ListingAlertForm() {
     <form className="border border-brand-sand bg-white p-6 sm:p-8" noValidate onSubmit={handleSubmit(() => setIsReady(true), () => setIsReady(false))}>
       <p className="text-xs text-brand-muted">* Required fields</p>
       <div className="mt-6 space-y-6">
-        <TextField label="Name *" error={errors.name} errorId="listing-name-error" placeholder="Your name" {...register("name")} />
-        <TextField label="Email *" error={errors.email} errorId="listing-email-error" type="email" placeholder="you@example.com" {...register("email")} />
+        <TextField label="Name" error={errors.name} errorId="listing-name-error" placeholder="Your name" {...register("name")} required />
+        <TextField label="Email" error={errors.email} errorId="listing-email-error" type="email" placeholder="you@example.com" {...register("email")} required />
         <PhoneField control={control} name="phone" label="Phone (optional)" error={errors.phone} errorId="listing-phone-error" />
-        <FieldShell label={<span id="interest-label">Looking for *</span>} error={errors.interest} errorId="listing-interest-error" hint="A home for lease now · Studio or 1 bedroom · 2 or 3 bedroom · Multifamily or investment unit · Not sure yet">
-          <Controller control={control} name="interest" render={({ field }) => <CustomSelect ariaLabelledBy="interest-label" defaultValue="lease-now" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={[...interestOptions]} required hasError={Boolean(errors.interest)} ariaDescribedBy="listing-interest-error" />} />
-        </FieldShell>
+        <SelectField
+          control={control}
+          name="interest"
+          label="Looking for"
+          required
+          options={interestOptions}
+          errorId="listing-interest-error"
+          hint="A home for lease now · Studio or 1 bedroom · 2 or 3 bedroom · Multifamily or investment unit · Not sure yet"
+        />
         <TextField label="Preferred area (optional)" error={errors.preferredArea} errorId="listing-area-error" placeholder="Neighborhood, city or county" {...register("preferredArea")} />
       </div>
       <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold">NOTIFY ME<Arrow /></button>

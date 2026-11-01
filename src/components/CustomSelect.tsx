@@ -9,17 +9,19 @@ import {
 } from "react";
 import Image from "next/image";
 
-type SelectOption = {
+export type SelectOption = {
   label: string;
   value: string;
 };
 
 type CustomSelectProps = {
+  id?: string;
+  inputRef?: (element: HTMLButtonElement | null) => void;
   ariaLabelledBy: string;
   defaultValue: string;
   value?: string;
   name: string;
-  options: SelectOption[];
+  options: readonly SelectOption[];
   required?: boolean;
   onValueChange?: (value: string) => void;
   onBlur?: () => void;
@@ -30,6 +32,8 @@ type CustomSelectProps = {
 };
 
 export function CustomSelect({
+  id,
+  inputRef,
   ariaLabelledBy,
   defaultValue,
   value,
@@ -48,7 +52,10 @@ export function CustomSelect({
     options.findIndex((option) => option.value === defaultValue),
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(initialIndex);
+  const [uncontrolledIndex, setSelectedIndex] = useState(initialIndex);
+  const selectedIndex = value === undefined
+    ? uncontrolledIndex
+    : Math.max(0, options.findIndex((option) => option.value === value));
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -66,16 +73,6 @@ export function CustomSelect({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     return () => document.removeEventListener("pointerdown", closeOnOutsidePointer);
   }, []);
-
-  useEffect(() => {
-    if (value === undefined) return;
-
-    const valueIndex = options.findIndex((option) => option.value === value);
-    if (valueIndex >= 0) {
-      setSelectedIndex(valueIndex);
-      setActiveIndex(valueIndex);
-    }
-  }, [value]);
 
   function openList() {
     setActiveIndex(selectedIndex);
@@ -128,8 +125,15 @@ export function CustomSelect({
     <div ref={containerRef} className={containerClassName}>
       <input type="hidden" name={name} value={selectedOption.value} required={required} />
       <button
-        ref={triggerRef}
+        id={id}
+        ref={(element) => {
+          triggerRef.current = element;
+          inputRef?.(element);
+        }}
         type="button"
+        role="combobox"
+        aria-required={required}
+        aria-activedescendant={isOpen ? `${listboxId}-${activeIndex}` : undefined}
         aria-controls={listboxId}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -174,6 +178,8 @@ export function CustomSelect({
               <li key={option.value} role="none">
                 <button
                   type="button"
+                  id={`${listboxId}-${index}`}
+                  tabIndex={-1}
                   role="option"
                   aria-selected={isSelected}
                   onMouseEnter={() => setActiveIndex(index)}

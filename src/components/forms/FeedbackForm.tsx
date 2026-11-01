@@ -4,10 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CustomSelect } from "@/components/CustomSelect";
-import { FieldShell, PhoneField, TextareaField, TextField } from "./FormFields";
+import { SelectField, PhoneField, TextareaField, TextField } from "./FormFields";
 import { FormReadyMessage, optionalPhoneSchema } from "./FormValidation";
 
 const feedbackOptions = [{ value: "compliment", label: "A compliment" }, { value: "concern", label: "A concern or complaint" }];
@@ -35,13 +34,21 @@ export function FeedbackForm() {
   return <form className="border border-brand-sand bg-white p-6 sm:p-8" noValidate onSubmit={handleSubmit(() => setIsReady(true), () => setIsReady(false))}>
     <p className="text-xs text-brand-muted">* Required fields</p>
     <div className="mt-6 space-y-6">
-      <FieldShell label={<span id="feedback-type-label">This is *</span>} error={errors.feedbackType} errorId="feedback-type-error" hint="Choose a compliment or concern so we can send it to the right person."><Controller control={control} name="feedbackType" render={({ field }) => <CustomSelect ariaLabelledBy="feedback-type-label" defaultValue="compliment" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={feedbackOptions} required hasError={Boolean(errors.feedbackType)} ariaDescribedBy="feedback-type-error" />} /></FieldShell>
+      <SelectField
+          control={control}
+          name="feedbackType"
+          label="This is"
+          required
+          options={feedbackOptions}
+          errorId="feedback-type-error"
+          hint="Choose a compliment or concern so we can send it to the right person."
+        />
       <TextField label="Your name (optional)" error={errors.name} errorId="feedback-name-error" placeholder="Your name" {...register("name")} />
-      <TextField label="Email *" error={errors.email} errorId="feedback-email-error" type="email" placeholder="you@example.com" {...register("email")} />
+      <TextField label="Email" error={errors.email} errorId="feedback-email-error" type="email" placeholder="you@example.com" {...register("email")} required />
       <PhoneField control={control} name="phone" label="Phone (optional)" error={errors.phone} errorId="feedback-phone-error" id="feedback-phone" />
       <TextField label="Property, project, or address (optional)" error={errors.property} errorId="feedback-property-error" placeholder="Where this happened, if relevant" {...register("property")} />
       <TextField label={<>Who helped you or who you&apos;d like us to know about (optional)</>} error={errors.person} errorId="feedback-person-error" placeholder="Person or team name" {...register("person")} />
-      <TextareaField label="What happened *" error={errors.message} errorId="feedback-message-error" placeholder="Tell it your way, dates and details help us act on it." {...register("message")} />
+      <TextareaField label="What happened" error={errors.message} errorId="feedback-message-error" placeholder="Tell it your way, dates and details help us act on it." {...register("message")} required />
       <label className="flex cursor-pointer items-start gap-3 text-[13px] font-normal leading-[1.7] text-brand-muted"><input type="checkbox" className="mt-0.5 size-[18px] shrink-0 accent-brand-gold" {...register("publicQuotePermission")} />You may quote this publicly — on the website, in marketing, or as a review — using my first name and last initial. I understand I can withdraw this permission at any time by emailing Info@luahpartners.com.</label>
       <label className="flex cursor-pointer items-start gap-3 text-[13px] font-normal leading-[1.7] text-brand-muted"><input type="checkbox" className="mt-0.5 size-[18px] shrink-0 accent-brand-gold" {...register("followUp")} />Please follow up with me about this. (Leave a name and email above so we can.)</label>
     </div>
