@@ -7,8 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
-import { FieldShell, TextareaField, TextField } from "./FormFields";
+import { FieldShell, PhoneField, TextareaField, TextField } from "./FormFields";
 import { FormReadyMessage, optionalPhoneSchema } from "./FormValidation";
 
 const audienceOptions = [
@@ -35,7 +34,7 @@ function Arrow() {
 
 export function ContactForm() {
   const { control, handleSubmit, register, formState: { errors } } = useForm<ContactValues>({
-    resolver: zodResolver(contactSchema), mode: "onBlur", reValidateMode: "onChange",
+    resolver: zodResolver(contactSchema), mode: "onChange", reValidateMode: "onChange",
     defaultValues: { name: "", email: "", phone: "", audience: "prospective-resident", message: "" },
   });
   const [isReady, setIsReady] = useState(false);
@@ -46,7 +45,7 @@ export function ContactForm() {
       <div className="mt-6 space-y-6">
         <TextField label="Name *" error={errors.name} errorId="contact-name-error" placeholder="Enter name" {...register("name")} />
         <TextField label="Email *" error={errors.email} errorId="contact-email-error" type="email" placeholder="you@example.com" {...register("email")} />
-        <FieldShell label="Phone (optional)" error={errors.phone} errorId="contact-phone-error"><span className="mt-[10px] block font-normal"><Controller control={control} name="phone" render={({ field }) => <InternationalPhoneInput id="contact-phone" name={field.name} ariaLabel="Phone number" value={field.value} onChange={field.onChange} onBlur={field.onBlur} hasError={Boolean(errors.phone)} ariaDescribedBy="contact-phone-error" />} /></span></FieldShell>
+        <PhoneField control={control} name="phone" label="Phone (optional)" error={errors.phone} errorId="contact-phone-error" id="contact-phone" />
         <FieldShell label={<span id="contact-audience-label">I am a... (optional)</span>} error={errors.audience} errorId="contact-audience-error" hint="Prospective resident · Current resident · Property owner · Seller or Landowner · Vendor"><Controller control={control} name="audience" render={({ field }) => <CustomSelect ariaLabelledBy="contact-audience-label" defaultValue="prospective-resident" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={audienceOptions} hasError={Boolean(errors.audience)} ariaDescribedBy="contact-audience-error" />} /></FieldShell>
         <TextareaField label="Message (optional)" error={errors.message} errorId="contact-message-error" placeholder="How can we help" {...register("message")} />
       </div>

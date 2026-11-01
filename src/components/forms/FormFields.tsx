@@ -1,7 +1,8 @@
 "use client";
 
 import { forwardRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
-import type { FieldError } from "react-hook-form";
+import { Controller, type Control, type FieldError, type FieldPath, type FieldValues } from "react-hook-form";
+import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
 import { FieldErrorMessage, inputClassName } from "./FormValidation";
 
 type FieldShellProps = {
@@ -66,3 +67,50 @@ export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>
     </label>
   );
 });
+
+type PhoneFieldProps<TFieldValues extends FieldValues> = {
+  control: Control<TFieldValues>;
+  name: FieldPath<TFieldValues>;
+  label: ReactNode;
+  error?: FieldError;
+  errorId: string;
+  id?: string;
+  ariaLabel?: string;
+  required?: boolean;
+};
+
+export function PhoneField<TFieldValues extends FieldValues>({
+  control,
+  name,
+  label,
+  error,
+  errorId,
+  id,
+  ariaLabel = "Phone number",
+  required = false,
+}: PhoneFieldProps<TFieldValues>) {
+  return (
+    <label className="block text-sm font-semibold text-brand-navy">
+      <span>{label}</span>
+      <span className="mt-[10px] block font-normal">
+        <Controller
+          control={control}
+          name={name}
+          render={({ field }) => (
+            <InternationalPhoneInput
+              id={id}
+              name={field.name}
+              ariaLabel={ariaLabel}
+              required={required}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              hasError={Boolean(error)}
+              ariaDescribedBy={errorId}
+            />
+          )}
+        />
+      </span>
+      <FieldErrorMessage id={errorId} error={error} />
+    </label>
+  );
+}

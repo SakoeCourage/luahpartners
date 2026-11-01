@@ -31,7 +31,7 @@ function Arrow() {
 
 export function PaymentForm() {
   const { control, handleSubmit, register, formState: { errors } } = useForm<PaymentValues>({
-    resolver: zodResolver(paymentSchema), mode: "onBlur", reValidateMode: "onChange",
+    resolver: zodResolver(paymentSchema), mode: "onChange", reValidateMode: "onChange",
     defaultValues: { name: "", paymentType: "rent", email: "", amount: "" },
   });
   const [isReady, setIsReady] = useState(false);

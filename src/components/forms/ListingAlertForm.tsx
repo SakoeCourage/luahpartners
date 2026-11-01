@@ -7,13 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
 import {
   FieldErrorMessage,
   FormReadyMessage,
   optionalPhoneSchema,
 } from "./FormValidation";
-import { FieldShell, TextField } from "./FormFields";
+import { FieldShell, PhoneField, TextField } from "./FormFields";
 
 const interestOptions = [
   { value: "lease-now", label: "A home for lease now" },
@@ -45,7 +44,7 @@ export function ListingAlertForm() {
     formState: { errors },
   } = useForm<ListingAlertValues>({
     resolver: zodResolver(listingAlertSchema),
-    mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
       name: "",
@@ -63,9 +62,7 @@ export function ListingAlertForm() {
       <div className="mt-6 space-y-6">
         <TextField label="Name *" error={errors.name} errorId="listing-name-error" placeholder="Your name" {...register("name")} />
         <TextField label="Email *" error={errors.email} errorId="listing-email-error" type="email" placeholder="you@example.com" {...register("email")} />
-        <FieldShell label="Phone (optional)" error={errors.phone} errorId="listing-phone-error">
-          <span className="mt-[10px] block font-normal"><Controller control={control} name="phone" render={({ field }) => <InternationalPhoneInput value={field.value} onChange={field.onChange} onBlur={field.onBlur} hasError={Boolean(errors.phone)} ariaDescribedBy="listing-phone-error" />} /></span>
-        </FieldShell>
+        <PhoneField control={control} name="phone" label="Phone (optional)" error={errors.phone} errorId="listing-phone-error" />
         <FieldShell label={<span id="interest-label">Looking for *</span>} error={errors.interest} errorId="listing-interest-error" hint="A home for lease now · Studio or 1 bedroom · 2 or 3 bedroom · Multifamily or investment unit · Not sure yet">
           <Controller control={control} name="interest" render={({ field }) => <CustomSelect ariaLabelledBy="interest-label" defaultValue="lease-now" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={[...interestOptions]} required hasError={Boolean(errors.interest)} ariaDescribedBy="listing-interest-error" />} />
         </FieldShell>

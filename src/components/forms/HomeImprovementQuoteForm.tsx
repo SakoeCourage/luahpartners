@@ -7,13 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
 import {
   FieldErrorMessage,
   FormReadyMessage,
   requiredPhoneSchema,
 } from "./FormValidation";
-import { FieldShell, TextareaField, TextField } from "./FormFields";
+import { FieldShell, PhoneField, TextareaField, TextField } from "./FormFields";
 
 const serviceOptions = [
   { value: "bathroom", label: "Bathroom remodeling" },
@@ -44,7 +43,7 @@ function Arrow() {
 export function HomeImprovementQuoteForm() {
   const { control, handleSubmit, register, formState: { errors } } = useForm<QuoteValues>({
     resolver: zodResolver(quoteSchema),
-    mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: { name: "", email: "", phone: "", serviceNeeded: "bathroom", address: "", details: "" },
   });
@@ -56,7 +55,7 @@ export function HomeImprovementQuoteForm() {
       <div className="mt-6 space-y-6">
         <TextField label="Name *" error={errors.name} errorId="quote-name-error" placeholder="Your name" {...register("name")} />
         <TextField label="Email *" error={errors.email} errorId="quote-email-error" type="email" placeholder="you@example.com" {...register("email")} />
-        <FieldShell label="Phone *" error={errors.phone} errorId="quote-phone-error"><span className="mt-[10px] block font-normal"><Controller control={control} name="phone" render={({ field }) => <InternationalPhoneInput id="quote-phone" name={field.name} ariaLabel="Phone number" value={field.value} onChange={field.onChange} onBlur={field.onBlur} hasError={Boolean(errors.phone)} ariaDescribedBy="quote-phone-error" />} /></span></FieldShell>
+        <PhoneField control={control} name="phone" label="Phone *" error={errors.phone} errorId="quote-phone-error" id="quote-phone" required />
         <FieldShell label={<span id="service-needed-label">Service needed *</span>} error={errors.serviceNeeded} errorId="quote-service-error" hint="Bathroom remodeling · Kitchen remodeling · Concrete & masonry · Flooring & drywall · Painting · Decks, patios & exterior · General repair or handyman · Not sure yet"><Controller control={control} name="serviceNeeded" render={({ field }) => <CustomSelect ariaLabelledBy="service-needed-label" defaultValue="bathroom" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={[...serviceOptions]} required hasError={Boolean(errors.serviceNeeded)} ariaDescribedBy="quote-service-error" />} /></FieldShell>
         <TextField label="Property address *" error={errors.address} errorId="quote-address-error" placeholder="Street, city DC or MD" {...register("address")} />
         <TextareaField label="Project details *" error={errors.details} errorId="quote-details-error" placeholder="What are you looking to have done?" {...register("details")} />

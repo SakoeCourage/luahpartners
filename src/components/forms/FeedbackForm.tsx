@@ -7,8 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CustomSelect } from "@/components/CustomSelect";
-import { InternationalPhoneInput } from "@/components/InternationalPhoneInput";
-import { FieldShell, TextareaField, TextField } from "./FormFields";
+import { FieldShell, PhoneField, TextareaField, TextField } from "./FormFields";
 import { FormReadyMessage, optionalPhoneSchema } from "./FormValidation";
 
 const feedbackOptions = [{ value: "compliment", label: "A compliment" }, { value: "concern", label: "A concern or complaint" }];
@@ -29,7 +28,7 @@ function Arrow() { return <Image src="/images/listing-arrow-right.svg" alt="" ar
 
 export function FeedbackForm() {
   const { control, handleSubmit, register, formState: { errors } } = useForm<FeedbackValues>({
-    resolver: zodResolver(feedbackSchema), mode: "onBlur", reValidateMode: "onChange",
+    resolver: zodResolver(feedbackSchema), mode: "onChange", reValidateMode: "onChange",
     defaultValues: { feedbackType: "compliment", name: "", email: "", phone: "", property: "", person: "", message: "", publicQuotePermission: false, followUp: false },
   });
   const [isReady, setIsReady] = useState(false);
@@ -39,7 +38,7 @@ export function FeedbackForm() {
       <FieldShell label={<span id="feedback-type-label">This is *</span>} error={errors.feedbackType} errorId="feedback-type-error" hint="Choose a compliment or concern so we can send it to the right person."><Controller control={control} name="feedbackType" render={({ field }) => <CustomSelect ariaLabelledBy="feedback-type-label" defaultValue="compliment" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} name={field.name} options={feedbackOptions} required hasError={Boolean(errors.feedbackType)} ariaDescribedBy="feedback-type-error" />} /></FieldShell>
       <TextField label="Your name (optional)" error={errors.name} errorId="feedback-name-error" placeholder="Your name" {...register("name")} />
       <TextField label="Email *" error={errors.email} errorId="feedback-email-error" type="email" placeholder="you@example.com" {...register("email")} />
-      <FieldShell label="Phone (optional)" error={errors.phone} errorId="feedback-phone-error"><span className="mt-[10px] block font-normal"><Controller control={control} name="phone" render={({ field }) => <InternationalPhoneInput id="feedback-phone" name={field.name} ariaLabel="Phone number" value={field.value} onChange={field.onChange} onBlur={field.onBlur} hasError={Boolean(errors.phone)} ariaDescribedBy="feedback-phone-error" />} /></span></FieldShell>
+      <PhoneField control={control} name="phone" label="Phone (optional)" error={errors.phone} errorId="feedback-phone-error" id="feedback-phone" />
       <TextField label="Property, project, or address (optional)" error={errors.property} errorId="feedback-property-error" placeholder="Where this happened, if relevant" {...register("property")} />
       <TextField label={<>Who helped you or who you&apos;d like us to know about (optional)</>} error={errors.person} errorId="feedback-person-error" placeholder="Person or team name" {...register("person")} />
       <TextareaField label="What happened *" error={errors.message} errorId="feedback-message-error" placeholder="Tell it your way, dates and details help us act on it." {...register("message")} />
