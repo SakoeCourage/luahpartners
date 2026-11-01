@@ -2,7 +2,7 @@ import {
   createLegalPolicyMetadata,
   LegalPolicyPage,
   type LegalPolicySection,
-} from "@/components/legal/LegalPolicyPage";
+} from "@/feature-slices/legal/LegalPolicyPage";
 
 const description =
   "Read Luah Partners’ policies for refunds, cancellations, payment disputes, deposits, rent, and application fees.";

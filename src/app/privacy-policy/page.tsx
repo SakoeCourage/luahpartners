@@ -2,7 +2,7 @@ import {
   createLegalPolicyMetadata,
   LegalPolicyPage,
   type LegalPolicySection,
-} from "@/components/legal/LegalPolicyPage";
+} from "@/feature-slices/legal/LegalPolicyPage";
 
 const description =
   "Learn how Luah Partners collects, uses, protects, and shares personal information through our website and payment services.";

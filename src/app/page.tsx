@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { HeroSection } from "@/components/home/HeroSection";
-import { TrustSection } from "@/components/home/TrustSection";
-import { PillarsSection } from "@/components/home/PillarsSection";
-import { MarketsSection } from "@/components/home/MarketsSection";
-import { ListingsCtaSection } from "@/components/home/ListingsCtaSection";
-import { PaymentBannerSection } from "@/components/home/PaymentBannerSection";
+import { HeroSection } from "@/feature-slices/home/HeroSection";
+import { TrustSection } from "@/feature-slices/home/TrustSection";
+import { PillarsSection } from "@/feature-slices/home/PillarsSection";
+import { MarketsSection } from "@/feature-slices/home/MarketsSection";
+import { ListingsCtaSection } from "@/feature-slices/home/ListingsCtaSection";
+import { PaymentBannerSection } from "@/feature-slices/home/PaymentBannerSection";
 
 export const metadata: Metadata = {
   title:

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ListingAlertForm } from "@/components/forms/ListingAlertForm";
+import { ListingAlertForm } from "@/feature-slices/listings/ListingAlertForm";
 
 export const metadata: Metadata = {
   title: "Listings | Luah Partners",

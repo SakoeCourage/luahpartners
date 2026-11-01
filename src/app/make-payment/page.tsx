@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { PaymentForm } from "@/components/forms/PaymentForm";
+import { PaymentForm } from "@/feature-slices/payments/PaymentForm";
 
 const paymentDescription = "All payments are collected in United States dollars (USD) and processed by Stripe. Luah Partners does not see or store your card or bank account numbers. Your statement will read LUAH PARTNERS.";
 

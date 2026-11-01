@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/DataTable";
-import { CareersApplicationForm } from "@/components/forms/CareersApplicationForm";
+import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/tables/DataTable";
+import { CareersApplicationForm } from "@/feature-slices/careers/CareersApplicationForm";
 
 const careersDescription =
   "We're a small team that does the work rather than brokering it out, and we're looking for people who want ownership of a market they already know. If one of the roles below fits, tell us — and if none of them do, tell us that too.";

@@ -2,7 +2,7 @@ import {
   createLegalPolicyMetadata,
   LegalPolicyPage,
   type LegalPolicySection,
-} from "@/components/legal/LegalPolicyPage";
+} from "@/feature-slices/legal/LegalPolicyPage";
 
 const description =
   "Read the terms governing use of the Luah Partners website, payments, housing services, and related policies.";

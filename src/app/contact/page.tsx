@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ContactForm } from "@/components/forms/ContactForm";
+import { ContactForm } from "@/feature-slices/contact/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact | Luah Partners",

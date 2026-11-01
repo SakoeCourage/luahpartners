@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/DataTable";
-import { HomeImprovementQuoteForm } from "@/components/forms/HomeImprovementQuoteForm";
+import { DataTable, type DataTableColumn, type DataTableRow } from "@/components/tables/DataTable";
+import { HomeImprovementQuoteForm } from "@/feature-slices/home-improvement/HomeImprovementQuoteForm";
 
 export const metadata: Metadata = {
   title: "Home Improvement | Luah Partners",

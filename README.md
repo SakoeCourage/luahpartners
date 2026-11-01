@@ -110,3 +110,33 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to view th
 * `npm run build`: Generates the optimized production build.
 * `npm run start`: Runs the built production server.
 * `npm run lint`: Runs ESLint code quality checks.
+
+### Source Organisation
+
+```text
+src/
+├── app/                     # Routes, metadata, root layout and global styles
+├── components/
+│   ├── layout/              # Shared header and footer
+│   ├── tables/              # Reusable data table and table-specific components
+│   ├── forms/               # Reusable fields, field layout, errors and messages
+│   └── icons/               # Shared SVG icons
+├── feature-slices/
+│   ├── home/                # Homepage sections
+│   ├── legal/               # Shared legal-policy layout and metadata helper
+│   ├── careers/             # Application form and validation schema
+│   ├── contact/             # Contact form and validation schema
+│   ├── feedback/            # Feedback form and validation schema
+│   ├── home-improvement/    # Quote form and validation schema
+│   ├── listings/            # Listing-alert form and validation schema
+│   └── payments/            # Payment form and validation schema
+├── providers/               # Application-wide providers
+└── lib/validation/          # Shared validation rules without UI dependencies
+```
+
+- Keep controls shared across unrelated features in `components/`; keep feature-specific sections, forms and schemas together in `feature-slices/`.
+- Components shared only within one feature stay in that slice (for example, the layout shared by the four legal pages).
+- Each reusable form field has its own file. Shared labels, required markers, hints and errors are handled by `FieldLayout`.
+- Keep route metadata and page composition in `app/`. Feature folders do not change public URLs.
+- Use `@/` imports across folders and relative imports for neighbouring files within a feature or component group.
+- Add integration modules beside the feature that uses them when those integrations are implemented; do not create placeholder service folders.

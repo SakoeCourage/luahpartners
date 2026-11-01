@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import { CustomSelect } from "@/components/CustomSelect";
+import { CustomSelect } from "@/components/forms/CustomSelect";
 
 export type DataTableColumn = {
   key: string;

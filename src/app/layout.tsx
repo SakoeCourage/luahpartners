@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "react-phone-input-2/lib/style.css";
 import "./phone-input.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import NprogressProvider from "@/components/NprogressProvider";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import ProgressProvider from "@/providers/ProgressProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,11 +22,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans bg-white text-brand-navy">
-        <NprogressProvider>
+        <ProgressProvider>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-        </NprogressProvider>
+        </ProgressProvider>
       </body>
     </html>
   );

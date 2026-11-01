@@ -2,7 +2,7 @@
 
 import { useId, type ReactNode } from "react";
 import type { FieldError } from "react-hook-form";
-import { FieldErrorMessage } from "./FormValidation";
+import { FieldErrorMessage } from "./FieldErrorMessage";
 
 export type FieldPresentationProps = {
   label: ReactNode;

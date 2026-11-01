@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { SelectField, PhoneField, TextareaField, TextField } from "./FormFields";
-import { FormReadyMessage, optionalPhoneSchema } from "./FormValidation";
+import { contactSchema, type ContactValues } from "./contact.schema";
+import { SelectField } from "@/components/forms/SelectField";
+import { PhoneField } from "@/components/forms/PhoneField";
+import { TextareaField } from "@/components/forms/TextareaField";
+import { TextField } from "@/components/forms/TextField";
+import { FormReadyMessage } from "@/components/forms/FormReadyMessage";
 
 const audienceOptions = [
   { value: "prospective-resident", label: "Prospective resident" },
@@ -16,16 +19,6 @@ const audienceOptions = [
   { value: "seller-landowner", label: "Seller or Landowner" },
   { value: "vendor", label: "Vendor" },
 ];
-
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Enter your name."),
-  email: z.string().trim().email("Enter a valid email address."),
-  phone: optionalPhoneSchema,
-  audience: z.enum(["prospective-resident", "current-resident", "property-owner", "seller-landowner", "vendor"]),
-  message: z.string().trim().max(2000, "Use 2,000 characters or fewer."),
-});
-
-type ContactValues = z.infer<typeof contactSchema>;
 
 function Arrow() {
   return <Image src="/images/listing-arrow-right.svg" alt="" aria-hidden="true" width={16} height={16} />;

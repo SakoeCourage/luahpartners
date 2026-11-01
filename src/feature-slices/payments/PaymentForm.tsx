@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { SelectField, TextField } from "./FormFields";
-import { FormReadyMessage } from "./FormValidation";
+import { paymentSchema, type PaymentValues } from "./payment.schema";
+import { SelectField } from "@/components/forms/SelectField";
+import { TextField } from "@/components/forms/TextField";
+import { FormReadyMessage } from "@/components/forms/FormReadyMessage";
 
 const paymentTypeOptions = [
   { value: "rent", label: "Rent" },
@@ -14,15 +15,6 @@ const paymentTypeOptions = [
   { value: "application-fee", label: "Application Fee" },
   { value: "invoice", label: "Invoice" },
 ];
-
-const paymentSchema = z.object({
-  name: z.string().trim().min(2, "Enter your full name."),
-  paymentType: z.enum(["rent", "security-deposit", "application-fee", "invoice"]),
-  email: z.string().trim().email("Enter a valid email address."),
-  amount: z.string().trim().refine((value) => Number.isFinite(Number(value)) && Number(value) > 0, "Enter an amount greater than $0.00."),
-});
-
-type PaymentValues = z.infer<typeof paymentSchema>;
 
 function Arrow() {
   return <Image src="/images/listing-arrow-right.svg" alt="" aria-hidden="true" width={16} height={16} />;

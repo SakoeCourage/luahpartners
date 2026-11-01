@@ -2,7 +2,7 @@ import {
   createLegalPolicyMetadata,
   LegalPolicyPage,
   type LegalPolicySection,
-} from "@/components/legal/LegalPolicyPage";
+} from "@/feature-slices/legal/LegalPolicyPage";
 
 const description =
   "Learn about Luah Partners’ commitment to equal housing opportunity, reasonable accommodations, and website accessibility.";

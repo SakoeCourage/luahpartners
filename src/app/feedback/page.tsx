@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { FeedbackForm } from "@/components/forms/FeedbackForm";
+import { FeedbackForm } from "@/feature-slices/feedback/FeedbackForm";
 
 export const metadata: Metadata = {
   title: "Feedback | Luah Partners",
