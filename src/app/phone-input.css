@@ -14,7 +14,7 @@
   background: white;
   color: var(--brand-navy);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -99,7 +99,14 @@
   padding: 8px 12px;
   color: var(--brand-navy);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .luah-phone-input .form-control,
+  .luah-phone-input .country-list .search-box {
+    font-size: 14px;
+  }
 }
 
 .luah-phone-input .country-list .search-box:focus {

@@ -75,7 +75,7 @@ export function DataTable({
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={searchPlaceholder}
-          className="min-h-8 w-full border border-brand-gold-light px-2 text-xs text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold"
+          className="luah-table-search min-h-8 w-full border border-brand-gold-light px-2 text-base text-brand-navy placeholder:text-brand-muted outline-none focus:border-brand-gold"
         />
         {filter && (
           <>

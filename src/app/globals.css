@@ -33,6 +33,17 @@ html {
   }
 }
 
+/* Keep editable controls at 16px on touch devices to prevent iOS focus zoom. */
+@media (hover: hover) and (pointer: fine) {
+  .luah-text-control {
+    font-size: 14px;
+  }
+
+  .luah-table-search {
+    font-size: 12px;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
